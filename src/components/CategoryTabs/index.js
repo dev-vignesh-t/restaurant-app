@@ -1,14 +1,14 @@
 import './index.css'
 
 const CategoryTabs = ({categories, activeTab, setActiveTab}) => (
-  <div className="tabs-wrapper">
-    <ul className="tabs-list">
+  <div>
+    <ul className="tabs-container">
       {categories.map(each => (
-        <li key={each.menuCategoryId} className="tab-item">
+        <li key={each.menuCategoryId}>
           <button
             type="button"
-            className={`tab-btn${
-              activeTab === each.menuCategory ? ' active' : ''
+            className={`tab-btn ${
+              activeTab === each.menuCategory ? 'active-tab' : ''
             }`}
             onClick={() => setActiveTab(each.menuCategory)}
           >

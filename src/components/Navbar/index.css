@@ -2,57 +2,55 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 24px;
-  border-bottom: 1px solid #e0e0e0;
-  background: #fff;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  padding: 16px 32px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
 }
 
-.restaurant-name {
-  font-size: 20px;
-  font-weight: 700;
-  color: #1a1a1a;
-  margin: 0;
+.nav-title {
+  font-size: 22px;
+  font-weight: bold;
+  color: #1e293b;
+  cursor: pointer;
 }
 
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 10px;
 }
 
-.my-orders-label {
-  font-size: 15px;
-  color: #1a1a1a;
-  margin: 0;
+.nav-orders {
+  margin-right: 16px;
+  font-size: 14px;
+  color: #475569;
 }
 
-.cart-wrapper {
+.nav-cart-btn {
   position: relative;
-  display: flex;
-  align-items: center;
+  margin-right: 16px;
+  padding: 6px 14px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 14px;
 }
 
-.cart-icon {
-  font-size: 26px;
-  color: #1a1a1a;
-}
-
-.cart-badge {
+.cart-count {
   position: absolute;
   top: -8px;
   right: -10px;
-  background: #d00000;
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  min-width: 18px;
-  height: 18px;
+  background-color: #f97316;
+  color: #ffffff;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 3px;
+  padding: 2px 6px;
+  font-size: 12px;
+}
+
+.logout-btn {
+  padding: 6px 12px;
+  border: none;
+  background-color: #f97316;
+  color: #ffffff;
+  border-radius: 6px;
+  cursor: pointer;
 }

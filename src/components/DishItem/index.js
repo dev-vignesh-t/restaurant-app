@@ -1,81 +1,74 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
+import CartContext from '../../context/CartContext'
 import './index.css'
 
-const DishItem = ({dish, setCartCount}) => {
+const DishItem = ({dish}) => {
   const [count, setCount] = useState(0)
 
+  const {
+    addCartItem,
+    incrementCartItemQuantity,
+    decrementCartItemQuantity,
+  } = useContext(CartContext)
+
   const onIncrease = () => {
-    setCount(prev => prev + 1)
-    setCartCount(prev => prev + 1)
+    setCount(prev => {
+      const newCount = prev + 1
+
+      if (prev === 0) {
+        addCartItem({...dish, quantity: 1})
+      } else {
+        incrementCartItemQuantity(dish.dishId)
+      }
+
+      return newCount
+    })
   }
 
   const onDecrease = () => {
-    if (count > 0) {
-      setCount(prev => prev - 1)
-      setCartCount(prev => prev - 1)
-    }
+    setCount(prev => {
+      if (prev === 0) return prev
+
+      decrementCartItemQuantity(dish.dishId)
+      return prev - 1
+    })
   }
 
   return (
     <li className="dish-item">
-      <div className="dish-type-indicator">
-        <div className={dish.dishType === 1 ? 'nonveg-box' : 'veg-box'}>
-          <div className="dot" />
-        </div>
-      </div>
+      <div className="dish-left">
+        <p className="dish-name">{dish.dishName}</p>
 
-      <div className="dish-details">
-        <h3 className="dish-name">{dish.dishName}</h3>
-        <p className="dish-price">
-          {dish.dishCurrency} {dish.dishPrice}
-        </p>
+        <p className="dish-price">{`${dish.dishCurrency} ${dish.dishPrice}`}</p>
+
         <p className="dish-description">{dish.dishDescription}</p>
 
-        {dish.dishAvailability && (
-          <button
-            type="button"
-            data-testid="decrease-quantity"
-            className="qty-btn qty-btn-left"
-            onClick={onDecrease}
-          >
-            -
-          </button>
-        )}
+        <p className="dish-calories">{dish.dishCalories} calories</p>
 
-        <p data-testid="dish-quantity" className="qty-count">
-          {count}
-        </p>
+        <p className="dish-quantity">{count}</p>
 
-        {dish.dishAvailability && (
-          <button
-            type="button"
-            data-testid="increase-quantity"
-            className="qty-btn qty-btn-right"
-            onClick={onIncrease}
-          >
-            +
-          </button>
-        )}
+        {dish.dishAvailability ? (
+          <div className="dish-controls">
+            <button className="dish-btn" onClick={onDecrease}>
+              -
+            </button>
 
-        {!dish.dishAvailability && (
+            <button className="dish-btn" onClick={onIncrease}>
+              +
+            </button>
+          </div>
+        ) : (
           <p className="not-available">Not available</p>
         )}
 
+        {count > 0 && <button className="add-cart-btn">ADD TO CART</button>}
+
         {dish.addonCat && dish.addonCat.length > 0 && (
-          <p className="customizations">Customizations available</p>
+          <p className="custom-text">Customizations available</p>
         )}
       </div>
 
-      <div className="dish-right">
-        <p className="dish-calories">{dish.dishCalories} calories</p>
-        {dish.dishImage && (
-          <img
-            src={dish.dishImage}
-            alt={dish.dishName}
-            className="dish-image"
-          />
-        )}
-      </div>
+      <img src={dish.dishImage} alt={dish.dishName} className="dish-img" />
     </li>
   )
 }
